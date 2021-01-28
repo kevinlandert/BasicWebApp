@@ -72,10 +72,12 @@ public class WebServer {
           out.close();
           in.close();
       }
+      else {
+          new ApiResponse(new QueryProcessor().process(query)).writeTo(resp);
+
+      }
 
       
-      
-      new ApiResponse(new QueryProcessor().process(query)).writeTo(resp);
     }
   }
 
