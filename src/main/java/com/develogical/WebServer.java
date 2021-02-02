@@ -49,33 +49,8 @@ public class WebServer {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String query = req.getParameter("q");
-      if (query.toLowerCase().contains("donkluser")) {
-    	  ServletContext cntx = req.getServletContext();
-    	  String filename = cntx.getRealPath("Images/donkluser.png");
-    	  String mime = cntx.getMimeType(filename);
-    	  if (mime == null) {
-        	  resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        	  return;  
-    	  }
-          resp.setContentType(mime);
-          File file = new File(filename);
-          resp.setContentLength((int)file.length());
-          
-          FileInputStream in = new FileInputStream(file);
-          OutputStream out = resp.getOutputStream();
-          
-          byte[] buf = new byte[1024];
-          int count = 0;
-          while ((count = in.read(buf)) >= 0) {
-        	  out.write(buf,0,count);
-          }
-          out.close();
-          in.close();
-      }
-      else {
-          new ApiResponse(new QueryProcessor().process(query)).writeTo(resp);
 
-      }
+          new ApiResponse(new QueryProcessor().process(query)).writeTo(resp);
 
       
     }
